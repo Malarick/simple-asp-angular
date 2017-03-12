@@ -39,5 +39,6 @@ namespace SimpleASPAngular.Models
 
         public bool? Status_Disetujui { get; set; }
 
+        public virtual TH_SPR Header { get; set; }
     }
 }

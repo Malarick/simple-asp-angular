@@ -51,5 +51,6 @@ namespace SimpleASPAngular.Models
 
         public DateTime? Tanggal_Disetujui2 { get; set; }
 
+        public virtual ICollection<TD_SPR> Details { get; set; }
     }
 }
