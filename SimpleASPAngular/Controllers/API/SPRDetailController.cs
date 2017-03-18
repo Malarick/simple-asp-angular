@@ -9,111 +9,57 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using SimpleASPAngular.Models;
+using SimpleASPAngular.BusinessLogic.SPR;
 
 namespace SimpleASPAngular.Controllers.API
 {
+    [RoutePrefix("api/SPRDetail")]
     public class SPRDetailController : ApiController
     {
         private SimpleASPAngularDB db = new SimpleASPAngularDB();
+        private SPRService service { get; set; }
+
+        public SPRDetailController() {
+            this.service = new SPRService(db);
+        }
 
         // GET: api/SPRDetail
-        public IQueryable<TD_SPR> GetTD_SPR()
+        [Route("")]
+        public IHttpActionResult GetTD_SPR()
         {
-            return db.TD_SPR;
+            return Json(db.TD_SPR);
         }
 
         // GET: api/SPRDetail/5
         [ResponseType(typeof(TD_SPR))]
-        public IHttpActionResult GetTD_SPR(string id)
+        public IHttpActionResult GetDetailsByHeaderId(string id)
         {
-            TD_SPR tD_SPR = db.TD_SPR.Find(id);
-            if (tD_SPR == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(tD_SPR);
+            var result = service.GetDetailsByHeaderId(id);
+            return Json(result);
         }
 
-        // PUT: api/SPRDetail/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutTD_SPR(string id, TD_SPR tD_SPR)
+        [HttpPost]
+        [Route("add")]
+        public IHttpActionResult AddSPRDetail([FromBody] SPRDetailModel detail)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != tD_SPR.Kode_Spr)
-            {
-                return BadRequest();
-            }
-
-            db.Entry(tD_SPR).State = EntityState.Modified;
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!TD_SPRExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return StatusCode(HttpStatusCode.NoContent);
+            var info = service.AddSPRDetail(detail);
+            return Json(info);
         }
 
-        // POST: api/SPRDetail
-        [ResponseType(typeof(TD_SPR))]
-        public IHttpActionResult PostTD_SPR(TD_SPR tD_SPR)
+        [HttpPost]
+        [Route("edit")]
+        public IHttpActionResult EditSPRDetail([FromBody] SPRDetailModel detail)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            db.TD_SPR.Add(tD_SPR);
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateException)
-            {
-                if (TD_SPRExists(tD_SPR.Kode_Spr))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return CreatedAtRoute("DefaultApi", new { id = tD_SPR.Kode_Spr }, tD_SPR);
+            var info = service.EditSPRDetail(detail);
+            return Json(info);
         }
 
-        // DELETE: api/SPRDetail/5
-        [ResponseType(typeof(TD_SPR))]
-        public IHttpActionResult DeleteTD_SPR(string id)
+        [HttpPost]
+        [Route("delete")]
+        public IHttpActionResult DeleteSPRDetail([FromBody] SPRDetailModel detail)
         {
-            TD_SPR tD_SPR = db.TD_SPR.Find(id);
-            if (tD_SPR == null)
-            {
-                return NotFound();
-            }
-
-            db.TD_SPR.Remove(tD_SPR);
-            db.SaveChanges();
-
-            return Ok(tD_SPR);
+            var info = service.DeleteSPRDetail(detail);
+            return Json(info);
         }
 
         protected override void Dispose(bool disposing)
