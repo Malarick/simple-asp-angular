@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+<html ng-app="SPR">
+<head>
+    <meta charset="utf-8" />
+    <title>SPR</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="bower_components/angular-ui-grid/ui-grid.min.css">
+    <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="bower_components/font-awesome/css/font-awesome.min.css">
+
+    <!-- Bower Components -->
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-touch/angular-touch.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+    <script src="bower_components/angular-ui-grid/ui-grid.min.js"></script>
+
+    <!-- Main App JS -->
+    <script src="app/app.module.js"></script>
+    <script src="app/app.routes.js"></script>
+    <script src="app/SPR/spr.controller.js"></script>
+    <script src="app/SPR/sprHeader.modal.controller.js"></script>
+    <script src="app/SPR/sprDetail.modal.controller.js"></script>
+    <script src="app/services/spr.service.js"></script>
+</head>
+<body>
+    <div ng-view></div>
+</body>
+</html>
