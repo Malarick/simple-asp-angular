@@ -4,6 +4,9 @@
     $uibModal,
     $window,
     $filter,
+    $location,
+    $anchorScroll,
+    $timeout,
     sprService
 ){
     $scope.showLoading = true;
@@ -153,6 +156,23 @@
                 // Do something
             });
         }
+    };
+
+    $scope.showDetail = function(headerId, details) {
+        $scope.detailShown = true;        
+        $scope.selectedDetailHeader = headerId;
+        $scope.selectedDetails = details;
+        angular.forEach($scope.selectedDetails, function (detail, detailKey){
+            if(detail.Jenis_Material == '01') {
+                detail.NamaJenisMaterial = 'Pokok'
+            } else {
+                detail.NamaJenisMaterial = 'Non-Pokok'
+            }
+        });
+        $timeout(function (){
+            $location.hash('detail');
+            $anchorScroll();            
+        });
     };
 
     $scope.loadModule();
