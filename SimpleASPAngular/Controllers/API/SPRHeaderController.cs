@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using SimpleASPAngular.Models;
+using SimpleASPAngular.BusinessLogic.SPR;
 
 namespace SimpleASPAngular.Controllers.API
 {
@@ -16,6 +17,11 @@ namespace SimpleASPAngular.Controllers.API
     public class SPRHeaderController : ApiController
     {
         private SimpleASPAngularDB db = new SimpleASPAngularDB();
+        private SPRService service { get; set; }
+
+        public SPRHeaderController() {
+            this.service = new SPRService(db);
+        }
 
         // GET: api/SPRHeader
         [Route("")]
@@ -33,69 +39,28 @@ namespace SimpleASPAngular.Controllers.API
             return Json(tH_SPR);
         }
 
-        // PUT: api/SPRHeader/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutTH_SPR(string id, TH_SPR tH_SPR)
+        [HttpPost]
+        [Route("add")]
+        public IHttpActionResult AddSPRHeader([FromBody] SPRHeaderModel header)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != tH_SPR.Kode_Spr)
-            {
-                return BadRequest();
-            }
-
-            db.Entry(tH_SPR).State = EntityState.Modified;
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!TH_SPRExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return StatusCode(HttpStatusCode.NoContent);
+            var info = service.AddSPRHeader(header);
+            return Ok();
         }
 
-        // POST: api/SPRHeader
-        [ResponseType(typeof(TH_SPR))]
-        public IHttpActionResult PostTH_SPR(TH_SPR tH_SPR)
+        [HttpPost]
+        [Route("edit")]
+        public IHttpActionResult EditSPRHeader([FromBody] SPRHeaderModel header)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            var info = service.EditSPRHeader(header);
+            return Ok();
+        }
 
-            db.TH_SPR.Add(tH_SPR);
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateException)
-            {
-                if (TH_SPRExists(tH_SPR.Kode_Spr))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return CreatedAtRoute("DefaultApi", new { id = tH_SPR.Kode_Spr }, tH_SPR);
+        [HttpPost]
+        [Route("delete")]
+        public IHttpActionResult DeleteSPRHeader([FromBody] SPRHeaderModel header)
+        {
+            var info = service.DeleteSPRHeader(header);
+            return Ok();
         }
 
         // DELETE: api/SPRHeader/5
