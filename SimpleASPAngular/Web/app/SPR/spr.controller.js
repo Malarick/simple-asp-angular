@@ -14,7 +14,11 @@
     $scope.pagingOpt = {
         maxSize: 5,
         itemsPerPage: 5
-    }
+    };
+    $scope.detailShown = false;
+    $scope.selectedColor = {
+        'background-color': 'aquamarine'
+    };
 
     $scope.clearFilter = function() {
         $scope.filter = {
@@ -24,13 +28,20 @@
         };
     };
 
+    $scope.clearSelection = function () {
+        $scope.detailShown = false;
+        $scope.selectedDetailHeader = '';
+    };
+
     $scope.showFilter = function(){        
         console.log('Filter', $scope.filter);
         console.log('Filtered Data', $scope.filteredHeaders);
-    }
+        $scope.clearSelection();
+    };
 
     $scope.pageChanged = function() {
         console.log('Current Page', $scope.currentPage);
+        $scope.clearSelection();
     };
     
     $scope.loadModule = function() {
@@ -58,6 +69,15 @@
 
                     // Status
                     header.status = true;
+
+                    // Detail is shown
+                    if($scope.selectedDetailHeader == header.Kode_Spr) {
+                        if(header.Details.length > 0) {
+                            $scope.showDetail(header.Kode_Spr, header.Details);
+                        } else {
+                            $scope.clearSelection();
+                        }
+                    }
                 });
                    
                 $scope.mainFilter = function(header) {
@@ -76,9 +96,7 @@
                         || header.Nama_Peminta.toLowerCase().indexOf(filter) > -1
                         || header.Nama_Penyetuju1.toLowerCase().indexOf(filter) > -1
                         || header.Nama_Penyetuju2.toLowerCase().indexOf(filter) > -1
-                };
-                
-                //$scope.pageChanged();
+                };                
             }, function onError(response){
                 console.log(response);
             }
@@ -107,6 +125,7 @@
         });
     };
 
+    // Headers
     $scope.addSPR = function() {
         var configuration = {
             size: 'lg',
@@ -119,6 +138,33 @@
         $scope.openModal(configuration, param);
     };
 
+    $scope.EditHeader = function(header) {
+        var configuration = {
+            size: 'lg',
+            templateUrl: '/Web/app/SPR/sprHeader.modal.html',
+            backdrop: true,
+            controller: 'sprHeaderModalController'
+        };
+
+        var param = angular.copy(header);
+        $scope.openModal(configuration, param);
+    }
+
+    $scope.Delete = function(header) {
+        var result = $window.confirm('Delete this data?');
+        if(result) {
+            sprService.deleteSPRHeader(header).then(
+            function onSuccess(response) {
+                $window.alert('Data has been deleted');
+                $scope.loadModule();
+            }, function onError(response) {
+                // Do something
+            });
+        }
+    };
+
+
+    // Details
     $scope.AddDetail = function(header) {
         var configuration = {
             size: 'lg',
@@ -128,27 +174,28 @@
         };
 
         var param = {
-            Kode_Spr: header.Kode_Spr
+            Kode_Spr: header.Kode_Spr,
+            Tanggal_Spr: header.Tanggal_Spr
         };
         $scope.openModal(configuration, param);
     };
 
-    $scope.EditHeader = function(header) {
+    $scope.EditDetail = function(detail) {
         var configuration = {
             size: 'lg',
-            templateUrl: '/Web/app/SPR/sprHeader.modal.html',
+            templateUrl: '/Web/app/SPR/sprDetail.modal.html',
             backdrop: true,
-            controller: 'sprHeaderModalController'
+            controller: 'sprDetailModalController'
         };
 
-        var param = header;
+        var param = angular.copy(detail);
         $scope.openModal(configuration, param);
     }
 
-    $scope.Delete = function(header) {
+    $scope.DeleteDetail = function(detail) {
         var result = $window.confirm('Delete this data?');
         if(result) {
-            sprService.deleteSPRHeader(header).then(
+            sprService.deleteSPRDetail(detail).then(
             function onSuccess(response) {
                 $window.alert('Data has been deleted');
                 $scope.loadModule();

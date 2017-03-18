@@ -5,8 +5,7 @@ angular.module('SPR')
     param, 
     sprService
 ){
-    $scope.detail = param;
-
+    $scope.detail = angular.copy(param);
     $scope.dateFormat = 'dd-MMM-yyyy';
     $scope.dateOptions = {
         dateDisabled: false,
@@ -25,15 +24,20 @@ angular.module('SPR')
         Kode_Material: 'Material harus dipilih',
         Volume: 'Volume harus diisi'
     };
+    $scope.jenisMaterial = {
+        pokok: '01',
+        nonPokok: '02'
+    };
     
     if(param.Kode_Material == null){
-        $scope.detail.Tanggal_Rencana_Terima = new Date();
+        $scope.detail.Tanggal_Rencana_Terima = new Date(param.Tanggal_Spr);
+        $scope.detail.Tanggal_Rencana_Terima.setDate($scope.detail.Tanggal_Rencana_Terima.getDate() + 14);
         $scope.detail.Status_Disetujui = false;
     } else {
-        $scope.header.Tanggal_Spr = new Date(param.Tanggal_Rencana_Terima);
+        $scope.detail.Tanggal_Rencana_Terima = new Date(param.Tanggal_Rencana_Terima);
     }
     
-    console.log($scope.detail);
+    console.log('Detail', $scope.detail);
 
     $scope.checkMaterialType = function(type) {
         if(type == '01'){
@@ -64,6 +68,7 @@ angular.module('SPR')
     );
 
     $scope.save = function(detail) {
+        console.log('Saved Detail', detail);
         if(!$scope.detail.Kode_Material || $scope.detail.Kode_Material == '' 
         || !$scope.detail.Volume || $scope.detail.Volume == '') {
             $scope.validation.error = true;
@@ -89,4 +94,6 @@ angular.module('SPR')
     $scope.cancel = function(msg){
         $uibModalInstance.dismiss(msg);
     };
+
+    $scope.checkMaterialType($scope.detail.Jenis_Material);
 });
