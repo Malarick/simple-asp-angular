@@ -24,6 +24,7 @@ namespace SimpleASPAngular.BusinessLogic.SPR
         public DateTime? Tanggal_Disetujui1 { get; set; }
         public DateTime? Tanggal_Disetujui2 { get; set; }
         public List<SPRDetailModel> Details { get; set; }
+        public bool? status { get; set; }
 
         public SPRHeaderModel() {
             this.Details = new List<SPRDetailModel>();
