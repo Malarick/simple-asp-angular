@@ -10,14 +10,17 @@
         <div style="display: inline-block; width: 100%;">
             <div style="display:block; float:left; width:20%;">Jenis Material:</div>
             <div style="display:block; float:left; width:20%;">
-                <input type="radio" ng-model="detail.Jenis_Material" ng-value="01" ng-click="checkMaterialType(detail.Jenis_Material)" /> Pokok
-                <input type="radio" ng-model="detail.Jenis_Material" ng-value="02" ng-click="checkMaterialType(detail.Jenis_Material)" /> Non-Pokok
+                <input type="radio" ng-model="detail.Jenis_Material" ng-value="jenisMaterial.pokok" ng-click="checkMaterialType(detail.Jenis_Material)" /> Pokok
+                <input type="radio" ng-model="detail.Jenis_Material" ng-value="jenisMaterial.nonPokok" ng-click="checkMaterialType(detail.Jenis_Material)" /> Non-Pokok
             </div>
         </div>
         <div style="display: inline-block; width: 100%;">
             <div style="display:block; float:left; width:20%;">Material: </div>
-            <div style="display:block; float:left; width:20%;">
-                <select ng-model="detail.Kode_Material" ng-options="material.Kode_Material as material.Deskripsi for material in materials"><option value="">-- choose material --</option></select>
+            <div style="display:block; float:left; width:60%;">
+                <select style="display:inline-block" ng-model="detail.Kode_Material" ng-options="material.Kode_Material as material.Deskripsi for material in materials">
+                    <option value="">-- choose material --</option>
+                </select>
+                <span style="color:red; display:inline-block;" ng-if="validation.error">{{ validation.Kode_Material }}</span>
             </div>
         </div>
         <div style="display: inline-block; width: 100%;">
@@ -27,9 +30,10 @@
             </div>
         </div>
         <div style="display: inline-block; width: 100%;">
-            <div style="display:block; float:left; width:20%;">Volume: </div>
-            <div style="display:block; float:left; width:20%;">
-                <input type="number" ng-model="detail.Volume" />
+            <div style="float:left; width:20%;">Volume: </div>
+            <div style="float:left; width:40%;">
+                <input style="display:inline-block" type="number" ng-model="detail.Volume" />
+                <span style="color:red; display:inline-block;" ng-if="validation.error">{{ validation.Volume }}</span>
             </div>
         </div>
         <div style="display: inline-block; width: 100%;">

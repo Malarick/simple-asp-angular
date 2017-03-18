@@ -25,9 +25,10 @@ namespace SimpleASPAngular.Controllers.API
 
         // GET: api/SPRHeader
         [Route("")]
-        public IHttpActionResult GetHeaders()
+        public IHttpActionResult GetSPRHeaders()
         {
-            return Json(db.TH_SPR);
+            var result = service.GetSPRHeaders();
+            return Json(result);
         }
 
         // GET: api/SPRHeader/5
@@ -44,7 +45,7 @@ namespace SimpleASPAngular.Controllers.API
         public IHttpActionResult AddSPRHeader([FromBody] SPRHeaderModel header)
         {
             var info = service.AddSPRHeader(header);
-            return Ok();
+            return Json(info);
         }
 
         [HttpPost]
@@ -52,7 +53,7 @@ namespace SimpleASPAngular.Controllers.API
         public IHttpActionResult EditSPRHeader([FromBody] SPRHeaderModel header)
         {
             var info = service.EditSPRHeader(header);
-            return Ok();
+            return Json(info);
         }
 
         [HttpPost]
@@ -60,7 +61,7 @@ namespace SimpleASPAngular.Controllers.API
         public IHttpActionResult DeleteSPRHeader([FromBody] SPRHeaderModel header)
         {
             var info = service.DeleteSPRHeader(header);
-            return Ok();
+            return Json(info);
         }
 
         // DELETE: api/SPRHeader/5

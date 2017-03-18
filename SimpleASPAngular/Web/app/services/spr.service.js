@@ -62,6 +62,51 @@
                 return deferred.promise;
             });
         },
+        addSPRDetail: function(detail) {
+            var deferred = $q.defer();
+            return $http({
+                method: 'POST',
+                url: '/api/SPRDetail/add',
+                data: JSON.stringify(detail),
+                headers: { 'Content-Type': 'application/json' }
+            }, function onSuccess(response) {
+                deferred.resolve(response)
+                return deferred.promise;
+            }, function onError(response) {
+                deferred.resolve(response)
+                return deferred.promise;
+            });
+        },
+        deleteSPRDetail: function(detail) {
+            var deferred = $q.defer();
+            return $http({
+                method: 'POST',
+                url: '/api/SPRDetail/delete',
+                data: JSON.stringify(detail),
+                headers: { 'Content-Type': 'application/json' }
+            }, function onSuccess(response) {
+                deferred.resolve(response)
+                return deferred.promise;
+            }, function onError(response) {
+                deferred.resolve(response)
+                return deferred.promise;
+            });
+        },
+        editSPRDetail : function(detail){
+            var deferred = $q.defer();
+            return $http({
+                method: 'POST',
+                url: '/api/SPRDetail/edit',
+                data: JSON.stringify(detail),
+                headers: { 'Content-Type': 'application/json' }
+            }, function onSuccess(response) {
+                deferred.resolve(response)
+                return deferred.promise;
+            }, function onError(response) {
+                deferred.resolve(response)
+                return deferred.promise;
+            });
+        },
         getMaterial : function(){
             var deferred = $q.defer();
             return $http({
