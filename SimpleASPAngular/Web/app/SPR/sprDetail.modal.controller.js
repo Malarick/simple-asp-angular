@@ -20,6 +20,11 @@ angular.module('SPR')
     $scope.open1 = function() {
         $scope.popup1.opened = true;
     };
+    $scope.validation = {
+        error: false,
+        Kode_Material: 'Material harus dipilih',
+        Volume: 'Volume harus diisi'
+    };
     
     if(param.Kode_Material == null){
         $scope.detail.Tanggal_Rencana_Terima = new Date();
@@ -59,6 +64,11 @@ angular.module('SPR')
     );
 
     $scope.save = function(detail) {
+        if(!$scope.detail.Kode_Material || $scope.detail.Kode_Material == '' 
+        || !$scope.detail.Volume || $scope.detail.Volume == '') {
+            $scope.validation.error = true;
+            return;
+        }
         if(param.Kode_Material == null){
             sprService.addSPRDetail(detail).then(
             function onSuccess(response) {
