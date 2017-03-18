@@ -10,7 +10,8 @@ namespace SimpleASPAngular.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            //return View();
+            return Redirect("/Web/index.html");
         }
 
         public ActionResult About()
