@@ -1,0 +1,83 @@
+﻿<div>
+    <div class="modal-header">SPR Detail</div>
+    <div class="modal-body">
+        <div style="display: inline-block; width: 100%;">
+            <div style="display:block; float:left; width:20%;">Kode SPR: </div>
+            <div style="display:block; float:left; width:20%;">
+                <input type="text" ng-model="detail.Kode_Spr" ng-disabled="true" />
+            </div>
+        </div>
+        <div style="display: inline-block; width: 100%;">
+            <div style="display:block; float:left; width:20%;">Jenis Material:</div>
+            <div style="display:block; float:left; width:20%;">
+                <input type="radio" ng-model="detail.Jenis_Material" ng-value="01" ng-click="checkMaterialType(detail.Jenis_Material)" /> Pokok
+                <input type="radio" ng-model="detail.Jenis_Material" ng-value="02" ng-click="checkMaterialType(detail.Jenis_Material)" /> Non-Pokok
+            </div>
+        </div>
+        <div style="display: inline-block; width: 100%;">
+            <div style="display:block; float:left; width:20%;">Material: </div>
+            <div style="display:block; float:left; width:20%;">
+                <select ng-model="detail.Kode_Material" ng-options="material.Kode_Material as material.Deskripsi for material in materials"><option value="">-- choose material --</option></select>
+            </div>
+        </div>
+        <div style="display: inline-block; width: 100%;">
+            <div style="display:block; float:left; width:20%;">Merk: </div>
+            <div style="display:block; float:left; width:20%;">
+                <input type="text" ng-model="detail.Merk" />
+            </div>
+        </div>
+        <div style="display: inline-block; width: 100%;">
+            <div style="display:block; float:left; width:20%;">Volume: </div>
+            <div style="display:block; float:left; width:20%;">
+                <input type="number" ng-model="detail.Volume" />
+            </div>
+        </div>
+        <div style="display: inline-block; width: 100%;">
+            <div style="display:block; float:left; width:20%;">Unit: </div>
+            <div style="display:block; float:left; width:20%;">
+                <select ng-model="detail.Unit" ng-options="unit.Unit as unit.Unit for unit in units"><option value="">-- Choose Unit --</option></select>
+            </div>
+        </div>
+        <div style="display: inline-block; width: 100%;">
+            <div style="display:block; float:left; width:20%;">Spesifikasi: </div>
+            <div style="display:block; float:left; width:20%;">
+                <input type="text" ng-model="detail.Spesifikasi" />
+            </div>
+        </div>
+        <div style="display: inline-block; width: 100%;">
+            <div style="display:block; float:left; width:20%;">Keterangan: </div>
+            <div style="display:block; float:left; width:20%;">
+                <input type="text" ng-model="detail.Keterangan" />
+            </div>
+        </div>
+        <div style="display: inline-block; width: 100%;">
+            <div style="display:block; float:left; width:20%;">Tgl Rencana Terima: </div>
+            <div style="display:block; float:left; width:20%;">
+                <p class="input-group">
+                    <input type="text" class="form-control" 
+                        uib-datepicker-popup="{{dateFormat}}" 
+                        readonly 
+                        ng-model="detail.Tanggal_Rencana_Terima" 
+                        is-open="popup1.opened" 
+                        datepicker-options="dateOptions" 
+                        ng-required="true" 
+                        close-text="Close"/>
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </p>
+            </div>
+        </div>
+        <div style="display: inline-block; width: 100%;">
+            <div style="display:block; float:left; width:20%;">Status Disetujui:</div>
+            <div style="display:block; float:left; width:20%;">
+                <input type="radio" ng-model="detail.Status_Disetujui" ng-value="true" /> Ya
+                <input type="radio" ng-model="detail.Status_Disetujui" ng-value="false" /> Tidak
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="save(detail)">Save</button>
+        <button class="btn btn-warning" ng-click="cancel('Cancel')">Cancel</button>
+    </div>
+</div>

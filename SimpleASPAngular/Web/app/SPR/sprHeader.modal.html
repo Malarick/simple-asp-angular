@@ -1,0 +1,77 @@
+﻿<div>
+    <div class="modal-header">SPR Header</div>
+    <div class="modal-body">
+        <div style="display: inline-block; width: 100%;">
+            <div style="display:block; float:left; width:30%;">Kode Proyek: </div>
+            <div style="display:block; float:left; width:40%;">
+                <input type="text" ng-model="header.Kode_Proyek" ng-disabled="true" />
+            </div>
+        </div>
+        <div style="display: inline-block; width: 100%;">
+            <div style="display:block; float:left; width:30%;">Kode Zona: </div>
+            <div style="display:block; float:left; width:40%;">
+                <input type="text" ng-model="header.Kode_Zona" ng-disabled="true" />
+            </div>
+        </div>
+        <div style="display: inline-block; width: 100%;">
+            <div style="display:block; float:left; width:30%;">Tgl SPR: </div>
+            <div style="display:block; float:left; width:20%;">
+                <p class="input-group">
+                    <input type="text" class="form-control" 
+                        uib-datepicker-popup="{{dateFormat}}" 
+                        readonly 
+                        ng-model="header.Tanggal_Spr" 
+                        is-open="popup1.opened" 
+                        datepicker-options="dateOptions" 
+                        ng-required="true" 
+                        close-text="Close"/>
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </p>
+            </div>
+        </div>
+        <div style="display: inline-block; width: 100%;">
+            <div style="display:block; float:left; width:30%;">Tujuan SPR: </div>
+            <div style="display:block; float:left; width:40%;">
+                <input type="text" ng-model="header.Tujuan_SPR" />
+            </div>
+        </div>
+        <div style="display: inline-block; width: 100%;">
+            <div style="display:block; float:left; width:30%;">Nama Peminta: </div>
+            <div style="display:block; float:left; width:40%;">
+                <input type="text" ng-model="header.Nama_Peminta" />
+            </div>
+        </div>
+        <div style="display: inline-block; width: 100%;">
+            <div style="display:block; float:left; width:30%;">Status Disetujui 1:</div>
+            <div style="display:block; float:left; width:40%;">
+                <input type="radio" ng-model="header.Status_Disetujui1" ng-value="true" /> Ya
+                <input type="radio" ng-model="header.Status_Disetujui1" ng-value="false" /> Tidak
+            </div>
+        </div>
+        <div style="display: inline-block; width: 100%;">
+            <div style="display:block; float:left; width:30%;">Status Disetujui 1:</div>
+            <div style="display:block; float:left; width:40%;">
+                <input type="radio" ng-model="header.Status_Disetujui2" ng-value="true" /> Ya
+                <input type="radio" ng-model="header.Status_Disetujui2" ng-value="false" /> Tidak
+            </div>
+        </div>
+        <div style="display: inline-block; width: 100%;">
+            <div style="display:block; float:left; width:30%;">Nama Penyetuju 1: </div>
+            <div style="display:block; float:left; width:40%;">
+                <input type="text" ng-model="header.Nama_Penyetuju1" />
+            </div>
+        </div>
+        <div style="display: inline-block; width: 100%;">
+            <div style="display:block; float:left; width:30%;">Nama Penyetuju 2: </div>
+            <div style="display:block; float:left; width:40%;">
+                <input type="text" ng-model="header.Nama_Penyetuju2" />
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="save(header)">Save</button>
+        <button class="btn btn-warning" ng-click="cancel('Cancel')">Cancel</button>
+    </div>
+</div>
